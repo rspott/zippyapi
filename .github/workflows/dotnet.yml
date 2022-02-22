@@ -3,7 +3,7 @@ name: POI dotnet package
 on:
   push:
     paths:
-      - '/zippyapi/apis/poi/**'
+      - '/apis/poi/**'
 
 jobs:
   build:
