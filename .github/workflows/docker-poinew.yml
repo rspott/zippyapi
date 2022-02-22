@@ -1,18 +1,44 @@
-name: Docker Image CI
+name: POI dotnet package
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+      - 'apis/poi/**'
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['3.1.x']
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - run: echo ${{github.ref}}
+      - run: pwd
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore apis/poi/poi.sln
+      - name: Build
+        run: dotnet build apis/poi/poi.sln
+      - name: Test
+        run: dotnet test apis/poi/tests/UnitTests
+      - name: Create Issue on failure
+        if: ${{ failure() }}
+        uses: dblock/create-a-github-issue@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          filename: .github/ISSUE_TEMPLATE/bug_report.md
+        
+      - run: echo "Building API-POI image..."
+      - run: echo "Changing directory to $GITOHTEAMDIRPATH/apis/poi/web..."
+      - run: cd "$GITOHTEAMDIRPATH/apis/poi/web"
+
+     ## - uses: actions/checkout@v2
+     ## - name: Build the Docker image
+     ##   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
