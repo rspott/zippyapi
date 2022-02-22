@@ -27,3 +27,12 @@ jobs:
         run: dotnet build apis/poi/poi.sln
       - name: Test
         run: dotnet test apis/poi/tests/UnitTests
+      - name: Create Issue on failure
+        if: ${{ failure() }}
+        uses: dblock/create-a-github-issue@v3
+        with:
+          token: ${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}
+          title: Action workflow failed.
+          body: Work on the bug
+          assignees: SomeUsername,AnotherUsername
+      
