@@ -4,6 +4,12 @@ IF SUFFICIENT INFORMATION IS NOT PROVIDED VIA THE FOLLOWING TEMPLATE THE ISSUE M
 > Please provide us with the following information:
 > ---------------------------------------------------------------
 
+name: Tracking issue
+about: Use this template for tracking new features.
+title: "[DATE]: [FEATURE NAME]"
+labels: tracking issue, needs triage
+assignees: apsangishrikant
+
 ### This issue is for a: (mark with an `x`)
 ```
 - [ ] bug report -> please search issues before submitting
