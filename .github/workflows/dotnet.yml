@@ -26,4 +26,4 @@ jobs:
       - name: Build
         run: dotnet build apis/poi/poi.sln
       - name: Test
-        run: dotnet test .
+        run: dotnet test apis/poi/tests/UnitTests
