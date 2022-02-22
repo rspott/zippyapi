@@ -32,6 +32,11 @@ jobs:
         uses: dblock/create-a-github-issue@v3
         env:
           GITHUB_TOKEN: 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
+        with:
+          assignees: JasonEtco, octocat
+          milestone: 1
+          update existing: true
+          search_existing: all
           #title: Action workflow failed.
           #body: |
           ### Context
