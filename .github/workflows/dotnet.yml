@@ -33,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: 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
         with:
-          assignees: JasonEtco, octocat
+          assignees: rspott
           milestone: 1
           update existing: true
           search_existing: all
