@@ -30,15 +30,15 @@ jobs:
       - name: Create Issue on failure
         if: ${{ failure() }}
         uses: dblock/create-a-github-issue@v3
-        with:
-          token: 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
-          title: Action workflow failed.
-          body: |
+        env:
+          GITHUB_TOKEN: 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
+          #title: Action workflow failed.
+          #body: |
           ### Context
           ##[Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           ##[Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
           #Workflow name - `${{ github.workflow }}`
           #Job - `${{ github.job }}`
           #status - `${{ job.status }}`
-          assignees: rspott
+          #assignees: rspott
       
