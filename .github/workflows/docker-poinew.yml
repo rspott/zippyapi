@@ -38,6 +38,7 @@ jobs:
       - run: echo "Building API-POI image..."
       - run: echo "Changing directory to $GITOHTEAMDIRPATH/apis/poi/web..."
       - run: cd "$GITOHTEAMDIRPATH/apis/poi/web"
+      - run: az acr build --image "devopsoh/api-poi:${BASEIMAGETAG}" --registry $ACRNAME --file Dockerfile .
 
      ## - uses: actions/checkout@v2
      ## - name: Build the Docker image
