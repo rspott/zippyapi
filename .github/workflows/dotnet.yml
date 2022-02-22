@@ -15,13 +15,14 @@ jobs:
 
     steps:
       - run: echo ${{github.ref}}
+      - run: pwd
       - uses: actions/checkout@v2
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore apis/poi/poi.sln
       - name: Build
         run: dotnet build apis/poi/poi.sln
       - name: Test
