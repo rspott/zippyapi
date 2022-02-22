@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace poi.Utility
 {
     public class HealthCheck : IHealthCheck
-    ////{
+    //{
         public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             var healthCheckResultHealthy = true; //TODO: implement a proper health check
