@@ -1,9 +1,13 @@
-name: POI dotnet package
+name: POI docker push
 
 on:
-  push:
-    paths:
+ workflow_dispatch:
+ push:
+   branches: [main]
+   paths:
       - 'apis/poi/**'
+ pull_request:
+   branches: [main]
 
 jobs:
   build:
