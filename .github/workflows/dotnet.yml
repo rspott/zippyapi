@@ -23,6 +23,6 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build .
+        run: dotnet sln apis/poi/poi.sln build .
       - name: Test
-        run: dotnet test .
+        run: dotnet sln apis/poi/poi.sln test .
