@@ -31,7 +31,7 @@ jobs:
         if: ${{ failure() }}
         uses: dblock/create-a-github-issue@v3
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
           filename: .github/ISSUE_TEMPLATE/bug_report.md
           #assignees: rspott
