@@ -1,5 +1,10 @@
 name: Trips Go Module Docker push
 
+defaults:
+  run:
+    shell: bash
+    working-directory: apis/trips
+    
 on:
   workflow_dispatch:
   push:
@@ -33,12 +38,12 @@ jobs:
     - name: Debug
       run: echo "Starting Build ...."
     - name: Build
-      run: go build -v apis/trips
+      run: go build -v .
     - name: Debug
       run: echo "Ended build Build ...."
       
     - name: Test
-      run: go test -v apis/trips
+      run: go test -v .
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
