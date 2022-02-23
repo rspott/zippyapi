@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'api/trips/**'
+      - 'apis/trips/**'
   pull_request:
     branches: [ main ]
 env:
@@ -33,12 +33,12 @@ jobs:
     - name: Debug
       run: echo "Starting Build ...."
     - name: Build
-      run: go build -v .
+      run: go build -v apis/trips
     - name: Debug
-      run: echo "Starting Build ...."
+      run: echo "Ended build Build ...."
       
     - name: Test
-      run: go test -v .
+      run: go test -v apis/trips
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
