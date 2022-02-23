@@ -5,9 +5,22 @@ name: UserProfile
 
 
 on:
-  push:
-    paths:
+ workflow_dispatch:
+ push:
+   branches: [main]
+   paths:
       - 'apis/userprofile/**'
+ pull_request:
+   branches: [main]
+env:
+  AZURE_RESOURCE_GROUP: openhackztk992u0rg  # target resource, must match the {resource-group-name} you setup in the pre-requisties
+  WEB_APP_NAME: openhackztk992u0poi         # set the name for the Web App on Azure
+  CONTAINER_IMAGE_NAME: userprofile # set the name for the container image
+  #SQL_CONNECTION_STRING: ${{ secrets.SQL_CONNECTION_STRING }}  # connection string for the Azure SQL database -> must be in the secrets
+  ACR_NAME: devopsoh               # set the name for the Azure Container Registry
+  ACR_LOGIN_SERVER: openhackztk992u0acr.azurecr.io # fqdn for the Azure Container Registry
+  ACR_USERNAME: ${{ secrets.ACR_USERNAME }} # user name for accessing Azure Container Registry
+  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }} # password for accesing the Azure Container Registry
 
 jobs:
   build:
@@ -21,19 +34,4 @@ jobs:
       - run: npm ci
       - run: npm test
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-  #    - run: npm publish
-  #      env:
-  #        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+ 
