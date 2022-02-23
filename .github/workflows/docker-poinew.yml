@@ -62,9 +62,9 @@ jobs:
       #    logout: false
     
     
-      - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/poi/web/Dockerfile ./apis/poi/web
+      - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/poi/web/Dockerfile ./apis/poi/web
       - run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
-      - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+      - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
 
       #- name: Build and push container image to registry
       #  uses: docker/build-push-action@v2
