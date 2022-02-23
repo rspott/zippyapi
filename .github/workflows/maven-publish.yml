@@ -38,7 +38,7 @@ jobs:
         distribution: 'temurin'
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-      - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/user-java/Dockerfile ./apis/user-java
+    - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/user-java/Dockerfile ./apis/user-java
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
