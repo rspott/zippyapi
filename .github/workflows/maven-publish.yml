@@ -64,3 +64,11 @@ jobs:
         retry-delay: 5s # Optional, only applicable to max-attempts > 1
       # Retry all errors, including 404. This option might trigger curl upgrade.
         retry-all: false # Optional, defaults to "false"
+     
+    - name: SWAP PR Deployment Slot
+      uses: Azure/cli@v1
+      with:
+        inlineScript: >
+          az webapp deployment slot swap --slot staging --target-slot production
+     
+     
