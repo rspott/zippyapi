@@ -69,7 +69,7 @@ jobs:
       
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{WEBAPP_NAME}}
+          app-name: ${{WEB_APP_NAME}}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}:${{ github.sha }}
       
       
