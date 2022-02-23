@@ -65,11 +65,11 @@ jobs:
       - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/poi/web/Dockerfile ./apis/poi/web
       - run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
       - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-
       
       - uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.WEB_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_POI_PUBLISH_PROFILE }}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}:${{ github.sha }}
       
       
