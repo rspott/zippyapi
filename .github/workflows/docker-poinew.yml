@@ -70,7 +70,7 @@ jobs:
         with:
           app-name: ${{ env.WEB_APP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_POI_PUBLISH_PROFILE }}
-          images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}:${{ github.sha }}
+          images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
       
       
       #- name: Build and push container image to registry
