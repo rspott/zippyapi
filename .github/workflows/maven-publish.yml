@@ -69,6 +69,6 @@ jobs:
       uses: Azure/cli@v1
       with:
         inlineScript: >
-          az webapp deployment slot swap --slot staging --target-slot production
+          az webapp deployment slot swap --slot staging --target-slot production --resource-group openhackztk992u0rg --name openhackztk992u0userjava
      
      
