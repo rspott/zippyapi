@@ -42,11 +42,15 @@ jobs:
       run: go version
 
     - name: Debug
-      run: echo "Starting Build ...."
+      run: echo "Tidying go Mod ...."
+    - name: GO Mod Tidy
+      run: go mod tidy
+    - name: Debug
+      run: echo "Building Go "
     - name: Build
       run: go build -v .
     - name: Debug
-      run: echo "Ended build Build ...."
+      run: echo "Ended Build ...."
       
     - name: Test
       run: go test -v .
