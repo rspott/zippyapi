@@ -61,7 +61,7 @@ jobs:
       #    password: ${{ env.ACR_PASSWORD }}
       #    logout: false
     
-      - run: docker build -t dmeo0223 -f ./apis/poi/web/Dockerfile ./apis/poi/
+      - run: docker build -t dmeo0223 -f ./apis/poi/web/Dockerfile ./apis/poi/web
 
       - name: Build and push container image to registry
         uses: docker/build-push-action@v2
