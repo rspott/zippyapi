@@ -12,6 +12,15 @@ on:
  pull_request:
    branches: [main]
 
+env:
+  AZURE_RESOURCE_GROUP: openhackztk992u0rg  # target resource, must match the {resource-group-name} you setup in the pre-requisties
+  WEB_APP_NAME: openhackztk992u0poi         # set the name for the Web App on Azure
+  CONTAINER_IMAGE_NAME: api-user-java # set the name for the container image
+  ACR_NAME: devopsoh               # set the name for the Azure Container Registry
+  ACR_LOGIN_SERVER: openhackztk992u0acr.azurecr.io # fqdn for the Azure Container Registry
+  ACR_USERNAME: ${{ secrets.ACR_USERNAME }} # user name for accessing Azure Container Registry
+  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }} # password for accesing the Azure Container Registry
+  
 jobs:
   build:
 
