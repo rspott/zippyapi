@@ -38,5 +38,5 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackztk992u0userjava'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_USERPROFILE_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_USERJAVA_PUBLISH_PROFILE }}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
