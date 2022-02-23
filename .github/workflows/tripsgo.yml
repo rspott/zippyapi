@@ -3,7 +3,7 @@ name: Trips Go Module Docker push
 defaults:
   run:
     shell: bash
-    #working-directory: apis/trips
+    working-directory: apis/trips
     
 on:
   workflow_dispatch:
