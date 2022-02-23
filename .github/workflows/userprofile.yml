@@ -25,6 +25,8 @@ env:
   ACR_USERNAME: ${{ secrets.ACR_USERNAME }} # user name for accessing Azure Container Registry
   ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }} # password for accesing the Azure Container Registry
   AZURE_WEBAPP_NAME: MY_WEBAPP_NAME   # set this to your application's name
+  AZURE_WEB_STAGE_PROFILE: ${{ secrets.AZURE_WEBAPP_USERPROFILE_STAGE_PUBLISH_PROFILE }}
+  AZURE_WEB_PROD_PROFILE: ${{ secrets.AZURE_WEBAPP_USERPROFILE_PUBLISH_PROFILE }}
     
 
 jobs:
@@ -62,6 +64,6 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackztk992u0userprofile'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_USERPROFILE_PUBLISH_PROFILE }}
+          publish-profile: ${{ env.AZURE_WEB_STAGE_PROFILE }}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
         
