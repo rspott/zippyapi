@@ -79,6 +79,7 @@ jobs:
           app-name: ${{ env.WEB_APP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_POI_PUBLISH_PROFILE }}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+          slot-name: staging
       
       
       #- name: Build and push container image to registry
