@@ -63,5 +63,5 @@ jobs:
         with:
           app-name: 'openhackztk992u0userprofile'
           publish-profile: ${{ secrets.AZURE_WEBAPP_USERPROFILE_PUBLISH_PROFILE }}
-          images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}'
+          images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
         
