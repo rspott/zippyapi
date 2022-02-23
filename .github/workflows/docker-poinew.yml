@@ -65,10 +65,10 @@ jobs:
       - name: Build and push container image to registry
         uses: docker/build-push-action@v2
         with:
-          context: ./.devcontainer/
+          #context: ./.devcontainer/
           push: true
           tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-          file: ./devcontainer/Dockerfile
+          file: ./apis/poi/web/Dockerfile
         
       #- run: pwd
       #- run: echo "Building API-POI image..."
