@@ -41,14 +41,14 @@ jobs:
          password: ${{ env.ACR_PASSWORD }}
          logout: false
 
-    - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/trips/Dockerfile ./apis/trips
+    - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} --build-arg build_version=${{ github.run_id }} -f ./apis/trips/Dockerfile ./apis/trips
     - run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
     - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
 
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'openhackztk992u0trips'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_TRIPS_PUBLISH_PROFILE }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_TRIPS_STAGING_PUBLISH_PROFILE }}
         images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
 
 #     - name: Set up Docker Buildx
