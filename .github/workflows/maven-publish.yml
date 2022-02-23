@@ -41,7 +41,7 @@ jobs:
     - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/user-java/Dockerfile ./apis/user-java
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file ./apis/user-java/pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
