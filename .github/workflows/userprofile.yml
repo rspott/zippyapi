@@ -65,6 +65,6 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackztk992u0userprofile'
-          publish-profile: ${{ env.AZURE_WEB_PROD_PROFILE }}
+          publish-profile: ${{ env.AZURE_WEB_STAGE_PROFILE }}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
         
