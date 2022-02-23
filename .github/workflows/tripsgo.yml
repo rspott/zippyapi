@@ -39,7 +39,7 @@ jobs:
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'openhackztk992u0trips'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_USERPROFILE_PUBLISH_PROFILE }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_TRIPS_PUBLISH_PROFILE }}
         images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
 
 #     - name: Set up Docker Buildx
