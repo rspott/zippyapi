@@ -84,8 +84,9 @@ jobs:
       - name: Get Health of Staging Env
         env:
           HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
-        if: ${{env.HEALTH_CHECK == 'Healthy'}}
-        run: echo "Healthy!"
+        run: echo ${{HEALTH_CHECK}}
+        #if: ${{env.HEALTH_CHECK == 'Healthy'}}
+        #run: echo "Healthy!"
           
       #- name: Check the deployed service URL
       #  uses: jtalk/url-health-check-action@v2
