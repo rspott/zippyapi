@@ -62,15 +62,6 @@ jobs:
           password: ${{ env.ACR_PASSWORD }}
           logout: false
     
-
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v2
-      with:
-          #context: ./.devcontainer/
-          push: true
-          tags: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-          file: ./apis/trips/Dockerfile
-
     - name: Get Health of Staging Env
       env:
           HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
