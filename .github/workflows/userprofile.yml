@@ -68,12 +68,7 @@ jobs:
           publish-profile: ${{ env.AZURE_WEB_STAGE_PROFILE }}
           images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
         
-      - name: Get Health of Staging Env
-        env:
-          HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
-            #run: echo ${{env.HEALTH_CHECK}}
-          if: ${{env.HEALTH_CHECK}} != 'Healthy'
-          run: echo "Staging is Healthy
+     
 
 
 
