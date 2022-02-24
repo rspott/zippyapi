@@ -86,6 +86,17 @@ jobs:
           HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
         if: ${{env.HEALTH_CHECK}} == 'Healthy'
         run: echo "Staging is Healthy"
+        
+      - name: AZ LOGIN
+        uses: Azure/login@v1.4.3
+        with:
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: SWAP PR Deployment Slot
+        uses: Azure/cli@v1
+        with:
+          inlineScript: >
+            az webapp deployment slot swap --slot staging --target-slot production --resource-group openhackztk992u0rg --name openhackztk992u0poi
           
       #- name: Check the deployed service URL
       #  uses: jtalk/url-health-check-action@v2
