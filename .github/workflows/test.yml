@@ -6,8 +6,8 @@ defaults:
     
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
+#   push:
+#     branches: [ main ]
 env:
     AZURE_RESOURCE_GROUP: openhackztk992u0rg  # target resource, must match the {resource-group-name} you setup in the pre-requisties
     WEB_APP_NAME: openhackztk992u0trips         # set the name for the Web App on Azure
