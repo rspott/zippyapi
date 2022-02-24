@@ -66,8 +66,8 @@ jobs:
       env:
           HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
       #run: echo ${{env.HEALTH_CHECK}}
-      if: ${{env.HEALTH_CHECK}} != 'Healthy'
-      run: exit 1
+      if: ${{env.HEALTH_CHECK}} == 'Healthy'
+      run: echo ${{env.HEALTH_CHECK}}
       
     - name: AZ LOGIN
       uses: Azure/login@v1.4.3
