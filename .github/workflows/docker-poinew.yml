@@ -93,10 +93,9 @@ jobs:
         
         run: |
           echo ${{env.HEALTH_CHECK}}
-          if [ ${{env.HEALTH_CHECK}} = "Healthy" ]
+          if [ ${{env.HEALTH_CHECK}} = "sHealthy" ]
           then
               echo "Healthy"
-              exit 0
           else
               echo "Not Healthy"
               exit 1
