@@ -85,7 +85,7 @@ jobs:
         env:
           HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
         
-        run: echo ${{env.HEALTH_CHECK}}
+        #run: echo ${{env.HEALTH_CHECK}}
          
       - if: ${{env.HEALTH_CHECK}} != 'Healthy'
         run: | 
