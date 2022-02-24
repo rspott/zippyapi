@@ -17,7 +17,7 @@ on:
    branches: [main]
 env:
   AZURE_RESOURCE_GROUP: openhackztk992u0rg  # target resource, must match the {resource-group-name} you setup in the pre-requisties
-  WEB_APP_NAME: userprofile         # set the name for the Web App on Azure
+  WEB_APP_NAME: UserProfile         # set the name for the Web App on Azure
   CONTAINER_IMAGE_NAME: devopsoh/api-userprofile # set the name for the container image
   #SQL_CONNECTION_STRING: ${{ secrets.SQL_CONNECTION_STRING }}  # connection string for the Azure SQL database -> must be in the secrets
   ACR_NAME: devopsoh               # set the name for the Azure Container Registry
@@ -77,8 +77,7 @@ jobs:
       uses: Azure/cli@v1
       with:
         inlineScript: >
-          az webapp deployment slot swap --slot staging --target-slot production --resource-group openhackztk992u0rg --name openhackztk992u0userprofile
-     
+          az webapp deployment slot swap --slot staging --target-slot production --resource-group openhackztk992u0rg --name openhackztk992u0userprofile     
      
 
 
