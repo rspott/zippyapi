@@ -30,40 +30,40 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v2
-    - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/user-java/Dockerfile ./apis/user-java
-    - run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
-    - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+#     - uses: actions/checkout@v2
+#     - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} -f ./apis/user-java/Dockerfile ./apis/user-java
+#     - run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
+#     - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
 
-    - name: Login to ACR
-      uses: docker/login-action@v1
-      with:
-        registry: ${{ env.ACR_LOGIN_SERVER }}
-        username: ${{ env.ACR_USERNAME }}
-        password: ${{ env.ACR_PASSWORD }}
-        logout: false
+#     - name: Login to ACR
+#       uses: docker/login-action@v1
+#       with:
+#         registry: ${{ env.ACR_LOGIN_SERVER }}
+#         username: ${{ env.ACR_USERNAME }}
+#         password: ${{ env.ACR_PASSWORD }}
+#         logout: false
 
-    - uses: azure/webapps-deploy@v2
-      with:
-          app-name: 'openhackztk992u0userjava'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_USERJAVA_STAGING_PUBLISH_PROFILE }}
-          images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-          slot-name: staging
+#     - uses: azure/webapps-deploy@v2
+#       with:
+#           app-name: 'openhackztk992u0userjava'
+#           publish-profile: ${{ secrets.AZURE_WEBAPP_USERJAVA_STAGING_PUBLISH_PROFILE }}
+#           images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+#           slot-name: staging
 
  
-    - name: Check the deployed service URL
-      uses: jtalk/url-health-check-action@v2
-      with:
-      # Check the following URLs one by one sequentially
-        url: https://openhackztk992u0userjava-staging.azurewebsites.net/api/healthcheck/user-java
-      # Follow redirects, or just report success on 3xx status codes
-        follow-redirect: false # Optional, defaults to "false"
-      # Fail this action after this many failed attempts
-        max-attempts: 3 # Optional, defaults to 1
-      # Delay between retries
-        retry-delay: 5s # Optional, only applicable to max-attempts > 1
-      # Retry all errors, including 404. This option might trigger curl upgrade.
-        retry-all: false # Optional, defaults to "false"
+#     - name: Check the deployed service URL
+#       uses: jtalk/url-health-check-action@v2
+#       with:
+#       # Check the following URLs one by one sequentially
+#         url: https://openhackztk992u0userjava-staging.azurewebsites.net/api/healthcheck/user-java
+#       # Follow redirects, or just report success on 3xx status codes
+#         follow-redirect: false # Optional, defaults to "false"
+#       # Fail this action after this many failed attempts
+#         max-attempts: 3 # Optional, defaults to 1
+#       # Delay between retries
+#         retry-delay: 5s # Optional, only applicable to max-attempts > 1
+#       # Retry all errors, including 404. This option might trigger curl upgrade.
+#         retry-all: false # Optional, defaults to "false"
 
     - name: AZ LOGIN
       uses: Azure/login@v1.4.3
