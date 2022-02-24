@@ -55,7 +55,8 @@ jobs:
       env:
           HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
       run: |
-            if ${{ env.HEALTH_CHECK }} == 'Healthy'; then
+            echo ${{ env.HEALTH_CHECK }}  
+            if ${{ env.HEALTH_CHECK }} == 'Healthy'  ; then
                 echo "Staging is Healthy"
             else
                echo "Staging is NOT Healthy"
