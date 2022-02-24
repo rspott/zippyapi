@@ -1,8 +1,8 @@
 name: POI docker push
 
-#defaults:
-#  run:
-#    shell: bash
+defaults:
+ run:
+   shell: bash
 
 on:
  workflow_dispatch:
