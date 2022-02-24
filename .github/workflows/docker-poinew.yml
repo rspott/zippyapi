@@ -81,19 +81,25 @@ jobs:
           images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
           slot-name: staging
           
-      - name: Check the deployed service URL
-        uses: jtalk/url-health-check-action@v2
-        with:
+      - name: Get Health of Staging Env
+        env:
+          HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
+        if: ${{env.HEALTH_CHECK == 'Healthy'))
+        run: echo "Healthy!"
+          
+      #- name: Check the deployed service URL
+      #  uses: jtalk/url-health-check-action@v2
+      #  with:
         # Check the following URLs one by one sequentially
-          url: https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi
+      #    url: https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi
         # Follow redirects, or just report success on 3xx status codes
-          follow-redirect: false # Optional, defaults to "false"
+      #    follow-redirect: false # Optional, defaults to "false"
         # Fail this action after this many failed attempts
-          max-attempts: 3 # Optional, defaults to 1
+      #    max-attempts: 3 # Optional, defaults to 1
         # Delay between retries
-          retry-delay: 5s # Optional, only applicable to max-attempts > 1
+      #    retry-delay: 5s # Optional, only applicable to max-attempts > 1
         # Retry all errors, including 404. This option might trigger curl upgrade.
-          retry-all: false # Optional, defaults to "false"
+      #    retry-all: false # Optional, defaults to "false"
           
       #- name: Health Check
       #- run: echo 'Starting health check'
