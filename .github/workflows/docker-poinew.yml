@@ -79,18 +79,18 @@ jobs:
           images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
           slot-name: staging
       
-      
-          
       - name: Get Health of Staging Env
         env:
-          HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
-        
-        run: echo ${{env.HEALTH_CHECK}}
-         
-      - if: ${{env.HEALTH_CHECK}} != 'Healthy'
-        run: | 
-          echo "Staging is Un Healthy"
-          exit 1
+            HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
+        run: |
+          echo ${{env.HEALTH_CHECK}}
+          if [ ${{env.HEALTH_CHECK}} = "Healthy" ]
+          then
+              echo "Healthy"
+          else
+              echo "Not Healthy"
+              exit 1
+          fi
         
       - name: AZ LOGIN
         uses: Azure/login@v1.4.3
