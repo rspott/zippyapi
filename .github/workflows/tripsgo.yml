@@ -75,7 +75,7 @@ jobs:
 
     - name: Get Health of Staging Env
       env:
-          HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
+       HEALTH_CHECK: $(curl -s --http2 -i https://openhackztk992u0trips-staging.azurewebsites.net/api/healthcheck/trips | tee >(grep -v "^{") | grep "^{" | jq -r '.status')
 #       if: ${{env.HEALTH_CHECK}} == 'Healthy'
     - name: AZ LOGIN
       uses: Azure/login@v1.4.3
