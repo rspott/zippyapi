@@ -30,16 +30,16 @@ jobs:
       - run: echo ${{github.ref}}
       - run: pwd
       - uses: actions/checkout@v2
-      #- name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      #  uses: actions/setup-dotnet@v1.7.2
-      #  with:
-      #    dotnet-version: ${{ matrix.dotnet-version }}
-      #- name: Install dependencies
-      #  run: dotnet restore apis/poi/poi.sln
-      #- name: Build
-      #  run: dotnet build apis/poi/poi.sln
-      #- name: Test
-      #  run: dotnet test apis/poi/tests/UnitTests
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore apis/poi/poi.sln
+      - name: Build
+        run: dotnet build apis/poi/poi.sln
+      - name: Test
+        run: dotnet test apis/poi/tests/UnitTests
       - name: Create Issue on failure
         if: ${{ failure() }}
         uses: dblock/create-a-github-issue@v3
@@ -50,16 +50,16 @@ jobs:
           
           
       
-      #- name: Set up Docker Buildx
-      #  uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      #- name: Login to ACR
-      #  uses: docker/login-action@v1
-      #  with:
-      #    registry: ${{ env.ACR_LOGIN_SERVER }}
-      #    username: ${{ env.ACR_USERNAME }}
-      #    password: ${{ env.ACR_PASSWORD }}
-      #    logout: false
+      - name: Login to ACR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.ACR_LOGIN_SERVER }}
+          username: ${{ env.ACR_USERNAME }}
+          password: ${{ env.ACR_PASSWORD }}
+          logout: false
       
       - name: Login to ACR
         uses: docker/login-action@v1
@@ -70,16 +70,16 @@ jobs:
           logout: false
     
     
-      #- run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} --build-arg build_version=${{ github.run_id }} -f ./apis/poi/web/Dockerfile ./apis/poi/web 
-      #- run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
-      #- run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+      - run: docker build -t ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} --build-arg build_version=${{ github.run_id }} -f ./apis/poi/web/Dockerfile ./apis/poi/web 
+      - run: docker login ${{ env.ACR_LOGIN_SERVER }} -u ${{ env.ACR_USERNAME }} -p ${{ env.ACR_PASSWORD }}
+      - run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
       
-      #- uses: azure/webapps-deploy@v2
-      #  with:
-      #    app-name: ${{ env.WEB_APP_NAME }}
-      #    publish-profile: ${{ secrets.AZURE_WEBAPP_POI_STAGING_PUBLISH_PROFILE }}
-      #    images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-      #    slot-name: staging
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.WEB_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_POI_STAGING_PUBLISH_PROFILE }}
+          images: ${{ env.ACR_LOGIN_SERVER }}/${{env.ACR_NAME}}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+          slot-name: staging
           
       - name: Get Health of Staging Env
         env:
@@ -98,42 +98,4 @@ jobs:
           inlineScript: >
             az webapp deployment slot swap --slot staging --target-slot production --resource-group openhackztk992u0rg --name openhackztk992u0poi
           
-      #- name: Check the deployed service URL
-      #  uses: jtalk/url-health-check-action@v2
-      #  with:
-        # Check the following URLs one by one sequentially
-      #    url: https://openhackztk992u0poi-staging.azurewebsites.net/api/healthcheck/poi
-        # Follow redirects, or just report success on 3xx status codes
-      #    follow-redirect: false # Optional, defaults to "false"
-        # Fail this action after this many failed attempts
-      #    max-attempts: 3 # Optional, defaults to 1
-        # Delay between retries
-      #    retry-delay: 5s # Optional, only applicable to max-attempts > 1
-        # Retry all errors, including 404. This option might trigger curl upgrade.
-      #    retry-all: false # Optional, defaults to "false"
-          
-      #- name: Health Check
-      #- run: echo 'Starting health check'
-      #- run: curl -s --http2 -i https://openhackztk992u0poi.azurewebsites.net/api/healthcheck/poi |  grep 'HTTP/[12][12\.]*'
-      
-      
-      #- name: Build and push container image to registry
-      #  uses: docker/build-push-action@v2
-      #  with:
-      #    context: ./apis/poi/web/
-      #    push: false
-      #    tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-      #    file: ./apis/poi/web/Dockerfile
-        
-      #- run: pwd
-      #- run: echo "Building API-POI image..."
-      #- run: echo "Changing directory to $GITOHTEAMDIRPATH/apis/poi/web..."
-      #- run: echo "${{GITOHTEAMDIRPATH}}
-      #- run: echo "${{BASEIMAGETAG}}
-      
-      #- run: cd "$GITOHTEAMDIRPATH/apis/poi/web"
-      #- run: az acr build --image "devopsoh/api-poi:${BASEIMAGETAG}" --registry $ACRNAME --file Dockerfile .
 
-     ## - uses: actions/checkout@v2
-     ## - name: Build the Docker image
-     ##   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
